@@ -1,0 +1,1868 @@
+﻿import type { Metadata } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
+import "./globals.css";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { site } from "@/data/site";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Update with the deployed URL once live.
+const siteUrl = "https://ashrakat-raafat.vercel.app";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Ashrakat Raafat Elabd | Frontend & Mobile Developer",
+    template: "%s | Ashrakat Raafat Elabd",
+  },
+  description:
+    "Frontend Developer specializing in React.js, Next.js, and React Native. I build modern, responsive web and mobile applications with clean, maintainable code.",
+  keywords: [
+    "Ashrakat Raafat Elabd",
+    "Frontend Developer",
+    "React.js Developer",
+    "Next.js Developer",
+    "React Native Developer",
+    "Mobile App Developer",
+    "TypeScript",
+    "Tanta Egypt",
+  ],
+  authors: [{ name: site.name }],
+  creator: site.name,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: site.name,
+    title: "Ashrakat Raafat Elabd | Frontend & Mobile Developer",
+    description:
+      "Frontend Developer specializing in React.js, Next.js, and React Native.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ashrakat Raafat Elabd | Frontend & Mobile Developer",
+    description:
+      "Frontend Developer specializing in React.js, Next.js, and React Native.",
+  },
+  icons: {
+    icon: "/icon.svg",
+  },
+  robots: { index: true, follow: true },
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="en"
+      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
+    >
+      <body className="flex min-h-full flex-col bg-night font-sans text-ink">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-night"
+        >
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
+  );
+}
+import { ImageResponse } from "next/og";
+
+export const runtime = "edge";
+
+export const alt = "Ashrakat Raafat Elabd â€” Frontend & Mobile Developer";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default async function OgImage() {
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          justifyContent: "center",
+          padding: "80px",
+          backgroundColor: "#04070e",
+          backgroundImage:
+            "radial-gradient(circle at 20% 0%, rgba(34,211,238,0.28), transparent 45%), radial-gradient(circle at 90% 100%, rgba(59,130,246,0.28), transparent 45%)",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "16px",
+            color: "#22d3ee",
+            fontSize: "28px",
+            fontWeight: 600,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "48px",
+              height: "48px",
+              borderRadius: "14px",
+              background: "linear-gradient(135deg, #22d3ee, #3b82f6)",
+              color: "#04070e",
+              fontWeight: 800,
+              fontSize: "26px",
+            }}
+          >
+            A
+          </div>
+          Frontend &amp; Mobile Developer
+        </div>
+
+        <div
+          style={{
+            marginTop: "36px",
+            color: "#e8eef7",
+            fontSize: "72px",
+            fontWeight: 700,
+            lineHeight: 1.1,
+            letterSpacing: "-0.02em",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <span>Ashrakat Raafat Elabd</span>
+          <span
+            style={{
+              marginTop: "18px",
+              backgroundImage: "linear-gradient(100deg, #22d3ee 0%, #38bdf8 45%, #3b82f6 100%)",
+              color: "transparent",
+            }}
+          >
+            React.js Â· Next.js Â· React Native
+          </span>
+        </div>
+
+        <div
+          style={{
+            marginTop: "44px",
+            display: "flex",
+            alignItems: "center",
+            gap: "22px",
+            color: "#8ca0b8",
+            fontSize: "30px",
+          }}
+        >
+          <span>ðŸŒ Tanta, Egypt</span>
+          <span>Â·</span>
+          <span>Available for opportunities</span>
+        </div>
+      </div>
+    ),
+    size
+  );
+}
+import { Hero } from "@/sections/Hero";
+import { About } from "@/sections/About";
+import { Skills } from "@/sections/Skills";
+import { Projects } from "@/sections/Projects";
+import { Experience } from "@/sections/Experience";
+import { Education } from "@/sections/Education";
+import { Contact } from "@/sections/Contact";
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Experience />
+      <Education />
+      <Contact />
+    </>
+  );
+}
+import { MdArrowUpward } from "react-icons/md";
+import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { navLinks, site } from "@/data/site";
+
+export function Footer() {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="relative border-t border-line bg-abyss/60">
+      <div className="container-shell py-10 md:py-14">
+        <div className="flex flex-col items-center justify-center gap-4 text-center">
+          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-accent to-electric font-display text-lg font-bold text-night shadow-[0_8px_24px_-8px_rgba(34,211,238,0.8)]">
+            {site.monogram}
+          </span>
+          <p className="font-display text-xl font-semibold text-ink">
+            {site.name}
+          </p>
+          <p className="max-w-md text-sm text-muted">
+            {site.headline}
+          </p>
+
+          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className="link-underline text-muted transition-colors hover:text-ink">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-3">
+            <a
+              href={`mailto:${site.email}`}
+              aria-label="Email Ashrakat"
+              className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 text-muted transition-colors hover:border-accent/50 hover:text-accent"
+            >
+              <FiMail size={18} />
+            </a>
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn profile"
+              className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 text-muted transition-colors hover:border-accent/50 hover:text-accent"
+            >
+              <FiLinkedin size={18} />
+            </a>
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub profile"
+              className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 text-muted transition-colors hover:border-accent/50 hover:text-accent"
+            >
+              <FiGithub size={18} />
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-line pt-6 text-xs text-muted sm:flex-row">
+          <p>
+            Â© {year} {site.name}. All rights reserved.
+          </p>
+          <p className="flex items-center gap-1.5">
+            Designed &amp; built with Next.js, Tailwind CSS &amp; Motion
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+          </p>
+          <a
+            href="#home"
+            aria-label="Back to top"
+            className="link-underline flex items-center gap-1.5 text-muted transition-colors hover:text-ink"
+          >
+            Back to top <MdArrowUpward />
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+"use client";
+
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { MdOutlineMenu, MdClose } from "react-icons/md";
+import { navLinks, site } from "@/data/site";
+import { cn } from "@/lib/utils";
+
+function useActiveSection(ids: readonly string[]) {
+  const [active, setActive] = useState<string>("home");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [ids]);
+
+  return active;
+}
+
+export function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const active = useActiveSection(navLinks.map((l) => l.href.slice(1)));
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, mass: 0.4 });
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        scrolled ? "border-b border-line bg-night/70 backdrop-blur-xl shadow-[0_8px_30px_-12px_rgba(2,10,20,0.8)]" : "bg-transparent"
+      )}
+    >
+      <motion.div
+        className="absolute inset-x-0 top-0 h-[2px] origin-left bg-gradient-to-r from-accent via-accent-soft to-electric"
+        style={{ scaleX: progress }}
+      />
+      <nav
+        aria-label="Primary"
+        className="container-shell flex h-16 items-center justify-between md:h-[4.5rem]"
+      >
+        <a
+          href="#home"
+          className="group flex items-center gap-2.5"
+          aria-label={`${site.name} â€” back to top`}
+        >
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent to-electric font-display text-sm font-bold text-night shadow-[0_6px_20px_-6px_rgba(34,211,238,0.8)]">
+            {site.monogram}
+          </span>
+          <span className="font-display text-base font-semibold tracking-tight text-ink">
+            Ashrakat<span className="text-accent">.</span>
+          </span>
+        </a>
+
+        <ul className="hidden items-center gap-1 lg:flex">
+          {navLinks.map((link) => {
+            const isActive = active === link.href.slice(1);
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  aria-current={isActive ? "true" : undefined}
+                  className={cn(
+                    "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                    isActive ? "text-accent" : "text-muted hover:text-ink"
+                  )}
+                >
+                  {link.label}
+                  {isActive ? (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-x-2 -bottom-px h-[2px] rounded-full bg-gradient-to-r from-accent to-electric"
+                      transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                    />
+                  ) : null}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="hidden lg:block">
+          <a
+            href="#contact"
+            className="btn-primary !px-5 !py-2.5"
+          >
+            Let&rsquo;s Talk
+          </a>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-white/5 text-ink transition-colors hover:border-accent/50 lg:hidden"
+        >
+          {open ? <MdClose size={22} /> : <MdOutlineMenu size={22} />}
+        </button>
+      </nav>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-b border-line bg-night/95 backdrop-blur-2xl lg:hidden"
+          >
+            <ul className="container-shell flex flex-col gap-1 py-4">
+              {navLinks.map((link, i) => (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, x: -14 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.04 * i, duration: 0.3 }}
+                >
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                      active === link.href.slice(1)
+                        ? "bg-accent/10 text-accent"
+                        : "text-ink/80 hover:bg-white/5"
+                    )}
+                  >
+                    {link.label}
+                    <span className="text-accent/60">â†’</span>
+                  </a>
+                </motion.li>
+              ))}
+              <motion.li
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.28, duration: 0.3 }}
+                className="mt-2 border-t border-line pt-4"
+              >
+                <a
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="btn-primary w-full"
+                >
+                  Let&rsquo;s Work Together
+                </a>
+              </motion.li>
+            </ul>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </header>
+  );
+}
+"use client";
+
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import type { ReactNode } from "react";
+
+const easing = [0.22, 1, 0.36, 1] as const;
+
+interface RevealProps {
+  children: ReactNode;
+  delay?: number;
+  y?: number;
+  once?: boolean;
+  className?: string;
+  variants?: Variants;
+}
+
+export function Reveal({ children, delay = 0, y = 28, once = true, className, variants }: RevealProps) {
+  const reduced = useReducedMotion();
+
+  return (
+    <motion.div
+      className={className}
+      initial={reduced ? false : { opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once, margin: "-80px" }}
+      transition={{ duration: 0.7, delay, ease: easing }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export const staggerContainer = (stagger = 0.08, delayChildren = 0): Variants => ({
+  hidden: {},
+  show: {
+    transition: { staggerChildren: stagger, delayChildren },
+  },
+});
+
+export const staggerItem = (y = 24): Variants => ({
+  hidden: { opacity: 0, y },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: easing },
+  },
+});
+import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/Reveal";
+
+interface SectionHeadingProps {
+  eyebrow: string;
+  title: string;
+  accent?: string;
+  description?: string;
+  align?: "center" | "left";
+  id?: string;
+}
+
+export function SectionHeading({
+  eyebrow,
+  title,
+  accent,
+  description,
+  align = "center",
+  id,
+}: SectionHeadingProps) {
+  const centered = align === "center";
+  return (
+    <Reveal className={cn("mb-12 md:mb-16", centered ? "text-center" : "text-left")}>
+      <div
+        className={cn(
+          "mb-4 flex items-center gap-3",
+          centered ? "justify-center" : "justify-start"
+        )}
+      >
+        <span className="h-px w-8 bg-gradient-to-r from-transparent to-accent" />
+        <span
+          id={id}
+          className="text-xs font-semibold uppercase tracking-[0.22em] text-accent"
+        >
+          {eyebrow}
+        </span>
+        <span className="h-px w-8 bg-gradient-to-l from-transparent to-accent" />
+      </div>
+      <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[2.75rem]">
+        {title}{" "}
+        {accent ? <span className="text-gradient">{accent}</span> : null}
+      </h2>
+      {description ? (
+        <p
+          className={cn(
+            "mt-4 max-w-2xl text-base leading-relaxed text-muted md:text-lg",
+            centered ? "mx-auto" : ""
+          )}
+        >
+          {description}
+        </p>
+      ) : null}
+    </Reveal>
+  );
+}
+"use client";
+
+import { useRef } from "react";
+import Image from "next/image";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { FiArrowUpRight, FiBell, FiGithub, FiHeart, FiMessageCircle, FiShoppingBag } from "react-icons/fi";
+import { featuredProject } from "@/data/projects";
+import { Reveal } from "@/components/Reveal";
+
+const featureChips = [
+  { label: "Wishlist", Icon: FiHeart, className: "left-0 top-[16%]", delay: 0 },
+  { label: "Cart", Icon: FiShoppingBag, className: "right-0 top-[30%]", delay: 0.8 },
+  { label: "Chat", Icon: FiMessageCircle, className: "left-0 bottom-[18%]", delay: 1.4 },
+  { label: "Notifications", Icon: FiBell, className: "right-0 bottom-[34%]", delay: 2 },
+];
+
+export function FeaturedProject() {
+  const reduced = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const rotate = useTransform(scrollYProgress, [0, 1], [-6, 6]);
+  const floatY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+
+  return (
+    <section ref={ref} className="relative overflow-hidden rounded-[2rem] card-surface p-6 md:p-10 lg:p-14" aria-label={`Featured project: ${featuredProject.title}`}>
+      <div
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{
+          background:
+            "radial-gradient(800px circle at 15% 0%, rgba(34,211,238,0.10), transparent 55%), radial-gradient(600px circle at 100% 100%, rgba(59,130,246,0.12), transparent 60%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+        {/* Phone mockup */}
+        <Reveal className="order-1 lg:order-none">
+          <motion.div
+            style={reduced ? undefined : { rotate, y: floatY }}
+            className="relative mx-auto w-[240px] sm:w-[270px]"
+          >
+            {/* Glow */}
+            <div className="absolute -inset-8 rounded-full bg-accent/15 blur-3xl" aria-hidden="true" />
+
+            {/* Phone */}
+            <div className="gradient-border relative aspect-[9/19] w-full overflow-hidden rounded-[2.6rem] bg-night shadow-[0_40px_120px_-40px_rgba(0,0,0,0.9)]">
+              <Image
+                src={featuredProject.image}
+                alt="Alluvo social commerce app running on a mobile device"
+                fill
+                sizes="(max-width: 640px) 240px, 270px"
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-night/85 via-transparent to-night/20" />
+
+              {/* Dynamic island */}
+              <div className="absolute left-1/2 top-3 h-6 w-24 -translate-x-1/2 rounded-full bg-night/80 backdrop-blur-md" aria-hidden="true" />
+
+              {/* Status bar */}
+              <div className="absolute inset-x-6 top-5 flex items-center justify-between text-[10px] font-medium text-white/90" aria-hidden="true">
+                <span>9:41</span>
+                <span>â—â—â— â–®â–®</span>
+              </div>
+
+              {/* Fake app overlay */}
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-night/55 p-3 backdrop-blur-md">
+                <div className="flex items-center gap-2">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-accent to-electric text-sm font-bold text-night">
+                    A
+                  </span>
+                  <div className="flex-1">
+                    <p className="truncate text-xs font-semibold text-white">Alluvo Studio</p>
+                    <p className="text-[10px] text-white/70">Shop the reel Â· Live now</p>
+                  </div>
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10">
+                    <FiShoppingBag size={13} className="text-accent" />
+                  </span>
+                </div>
+                <div className="mt-3 h-1.5 w-3/4 rounded-full bg-white/10">
+                  <div className="h-full w-2/3 rounded-full bg-gradient-to-r from-accent to-electric" />
+                </div>
+              </div>
+            </div>
+
+            {/* Floating feature chips */}
+            {featureChips.map(({ label, Icon, className, delay }, i) => (
+              <motion.span
+                key={label}
+                initial={{ opacity: 0, scale: 0.6 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 + delay * 0.12, duration: 0.5 }}
+                style={{ animation: `float ${6.5 + i * 1.1}s ease-in-out ${delay}s infinite` }}
+                className={`absolute ${className} inline-flex items-center gap-1.5 rounded-full border border-line bg-abyss/85 px-3 py-1.5 text-[11px] font-medium text-ink backdrop-blur-xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8)]`}
+              >
+                <Icon size={13} className="text-accent" />
+                {label}
+              </motion.span>
+            ))}
+          </motion.div>
+        </Reveal>
+
+        {/* Content */}
+        <div className="order-2 lg:order-none">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent">
+              Featured Project
+            </span>
+            <h3 className="mt-5 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              Alluvo
+              <span className="mt-2 block text-lg font-medium text-muted sm:text-xl">
+                Social Commerce Mobile Application
+              </span>
+            </h3>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted md:text-base">
+              {featuredProject.description}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.12}>
+            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-muted/80">
+              Tech Stack
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {featuredProject.tech.map((t) => (
+                <span key={t} className="rounded-full border border-line bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-ink">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-muted/80">
+              Key Features
+            </p>
+            <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {featuredProject.tags?.map((tag) => (
+                <li key={tag} className="flex items-center gap-2 text-xs text-muted md:text-sm">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={0.28} className="mt-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <a href={featuredProject.demo || featuredProject.github || "#projects"} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                View Project <FiArrowUpRight size={17} />
+              </a>
+              <a href={featuredProject.github} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+                <FiGithub size={17} /> GitHub
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+"use client";
+
+import { useRef } from "react";
+import Image from "next/image";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { FiArrowUpRight, FiExternalLink, FiGithub } from "react-icons/fi";
+import type { Project } from "@/data/projects";
+import { cn } from "@/lib/utils";
+
+interface ProjectCardProps {
+  project: Project;
+  className?: string;
+}
+
+export function ProjectCard({ project, className }: ProjectCardProps) {
+  const reduced = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 180, damping: 20 });
+  const sry = useSpring(ry, { stiffness: 180, damping: 20 });
+  const rotateX = useTransform(srx, [-0.5, 0.5], [-5, 5]);
+  const rotateY = useTransform(sry, [-0.5, 0.5], [5, -5]);
+
+  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (reduced || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    rx.set((e.clientY - rect.top) / rect.height - 0.5);
+    ry.set((e.clientX - rect.left) / rect.width - 0.5);
+  }
+
+  function onMouseLeave() {
+    rx.set(0);
+    ry.set(0);
+  }
+
+  return (
+    <motion.article
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={reduced ? undefined : { rotateX, rotateY, transformPerspective: 900 }}
+      whileHover={{ y: -8 }}
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl card-surface transition-shadow duration-300 hover:shadow-[0_30px_80px_-30px_rgba(34,211,238,0.35)]",
+        className
+      )}
+    >
+      {/* Image */}
+      <div className="relative aspect-[16/10] overflow-hidden">
+        <Image
+          src={project.image}
+          alt={project.imageAlt}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-1"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-night via-night/20 to-transparent transition-opacity duration-300 opacity-60 group-hover:opacity-30" />
+
+        {/* Category badge */}
+        <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-night/60 px-3 py-1 text-[11px] font-medium text-accent backdrop-blur-md">
+          {project.categoryLabel}
+        </span>
+
+        {/* Hover actions */}
+        <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 opacity-0 translate-y-3 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+          {(() => {
+            const primaryHref = project.demo || project.github;
+            if (primaryHref) {
+              return (
+                <a
+                  href={primaryHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-night shadow-lg transition-transform hover:scale-105"
+                >
+                  {project.demo ? "Live Demo" : "View Project"}
+                  {project.demo ? <FiExternalLink size={14} /> : <FiArrowUpRight size={15} />}
+                </a>
+              );
+            }
+            return (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-night shadow-lg">
+                View Project <FiArrowUpRight size={15} />
+              </span>
+            );
+          })()}
+          {project.github ? (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${project.title} on GitHub`}
+              className="grid h-10 w-10 place-items-center rounded-full border border-line bg-night/70 text-ink backdrop-blur-md transition-colors hover:border-accent/60 hover:text-accent"
+            >
+              <FiGithub size={17} />
+            </a>
+          ) : null}
+        </div>
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-display text-lg font-semibold text-ink transition-colors group-hover:text-accent">
+          {project.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{project.description}</p>
+
+        <div className="mt-auto pt-5">
+          <div className="flex flex-wrap gap-1.5">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[11px] font-medium text-muted transition-colors duration-300 group-hover:border-accent/35 group-hover:text-ink"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+"use client";
+
+import { motion } from "framer-motion";
+import { PROJECT_FILTERS, type ProjectFilter } from "@/data/projects";
+import { cn } from "@/lib/utils";
+
+interface ProjectFiltersProps {
+  active: ProjectFilter;
+  onChange: (filter: ProjectFilter) => void;
+}
+
+export function ProjectFilters({ active, onChange }: ProjectFiltersProps) {
+  return (
+    <div
+      role="tablist"
+      aria-label="Filter projects"
+      className="flex flex-wrap items-center justify-center gap-2"
+    >
+      {PROJECT_FILTERS.map((filter) => {
+        const isActive = active === filter.value;
+        return (
+          <button
+            key={filter.value}
+            type="button"
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => onChange(filter.value)}
+            className={cn(
+              "relative rounded-full px-5 py-2.5 text-sm font-semibold transition-colors duration-300",
+              isActive ? "text-night" : "text-muted hover:text-ink"
+            )}
+          >
+            {isActive ? (
+              <motion.span
+                layoutId="project-filter"
+                className="absolute inset-0 rounded-full bg-gradient-to-r from-accent to-electric shadow-[0_8px_24px_-8px_rgba(34,211,238,0.7)]"
+                transition={{ type: "spring", stiffness: 400, damping: 32 }}
+              />
+            ) : null}
+            <span className="relative z-10">{filter.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+"use client";
+
+import { useRef } from "react";
+import Image from "next/image";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { SiNextdotjs, SiReact, SiReactquery, SiRedux, SiTailwindcss } from "react-icons/si";
+import { FiArrowUpRight, FiMapPin } from "react-icons/fi";
+import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
+import { site } from "@/data/site";
+
+const chips = [
+  { Icon: SiReact, label: "React", className: "left-[-6%] top-[6%]", delay: 0 },
+  { Icon: SiNextdotjs, label: "Next.js", className: "right-[-4%] top-[30%]", delay: 0.6 },
+  { Icon: SiTailwindcss, label: "Tailwind", className: "left-[-4%] bottom-[24%]", delay: 1.1 },
+  { Icon: SiRedux, label: "Redux", className: "right-[8%] bottom-[4%]", delay: 1.6 },
+];
+
+const focus = [
+  { title: "Performance", text: "Fast, smooth interfaces users actually enjoy." },
+  { title: "Clean code", text: "Reusable components and maintainable architecture." },
+  { title: "Responsive", text: "Pixel-consistent across every screen size." },
+];
+
+export function About() {
+  const reduced = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+
+  return (
+    <section id="about" ref={ref} className="relative overflow-hidden py-24 md:py-32" aria-label="About me">
+      <div className="absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-accent/10 blur-[130px]" aria-hidden="true" />
+      <div className="container-shell grid items-center gap-16 lg:grid-cols-2">
+        {/* Visual */}
+        <Reveal className="relative order-1 mx-auto w-full max-w-md lg:order-none">
+          <motion.div
+            style={reduced ? undefined : { y }}
+            className="relative"
+          >
+            <div className="gradient-border relative aspect-square w-full overflow-hidden rounded-[2rem]">
+              <Image
+                src="/images/ashrakat.jpg"
+                alt={`Portrait of ${site.name}`}
+                width={800}
+                height={800}
+                sizes="(max-width: 768px) 90vw, 480px"
+                className="h-full w-full object-cover"
+                priority={false}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-night/70 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-2xl glass px-4 py-3">
+                <div>
+                  <p className="font-display text-sm font-semibold text-ink">{site.name}</p>
+                  <p className="text-xs text-muted">{site.title}</p>
+                </div>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/15 px-2.5 py-1 text-[11px] font-medium text-accent">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-dot" />
+                  Open to work
+                </span>
+              </div>
+            </div>
+
+            {/* Floating chips */}
+            {chips.map(({ Icon, label, className, delay }) => (
+              <motion.span
+                key={label}
+                initial={{ opacity: 0, scale: 0.7 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + delay * 0.15, duration: 0.5 }}
+                className={`absolute ${className} inline-flex items-center gap-2 rounded-full border border-line bg-abyss/80 px-3.5 py-2 text-xs font-medium text-ink backdrop-blur-xl shadow-[0_14px_36px_-14px_rgba(0,0,0,0.8)]`}
+                style={{ animation: `float ${7 + delay * 1.4}s ease-in-out ${delay}s infinite` }}
+              >
+                <Icon className="text-accent" size={16} />
+                {label}
+              </motion.span>
+            ))}
+          </motion.div>
+        </Reveal>
+
+        {/* Content */}
+        <div className="order-2 lg:order-none">
+          <SectionHeading
+            align="left"
+            eyebrow="About Me"
+            title="Building interfaces that"
+            accent="feel effortless"
+          />
+
+          <Reveal delay={0.1}>
+            <p className="text-base leading-relaxed text-muted md:text-lg">
+              I&rsquo;m a <span className="font-semibold text-ink">Frontend Developer</span> and{" "}
+              <span className="font-semibold text-ink">Mobile Application Developer</span> with hands-on
+              experience building responsive web applications and React Native mobile applications.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
+              I enjoy creating <span className="font-semibold text-ink">clean, reusable, and scalable interfaces</span>{" "}
+              while focusing on performance, usability, and maintainable component-based architecture.
+            </p>
+          </Reveal>
+
+          <motion.div
+            variants={staggerContainer(0.1, 0.3)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-60px" }}
+            className="mt-8 grid gap-3 sm:grid-cols-3"
+          >
+            {focus.map((f) => (
+              <motion.div
+                key={f.title}
+                variants={staggerItem(16)}
+                className="rounded-2xl card-surface p-4 transition-colors hover:border-accent/40"
+              >
+                <p className="font-display text-sm font-semibold text-ink">{f.title}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted">{f.text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <Reveal delay={0.2} className="mt-9">
+            <ul className="space-y-3 text-sm text-muted">
+              <li className="flex items-center gap-3">
+                <FiMapPin className="shrink-0 text-accent" />
+                <span>{site.location}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="grid h-4 w-4 shrink-0 place-items-center text-accent">@</span>
+                <a href={`mailto:${site.email}`} className="link-underline text-muted hover:text-ink">
+                  {site.email}
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="grid h-4 w-4 shrink-0 place-items-center text-accent">
+                  <FiArrowUpRight size={15} />
+                </span>
+                <a
+                  href={site.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline text-muted hover:text-ink"
+                >
+                  github.com/{site.github.split("/").pop()}
+                </a>
+              </li>
+            </ul>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+"use client";
+
+import { useState, type FormEvent } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { FiCheckCircle, FiGithub, FiLinkedin, FiMail, FiSend } from "react-icons/fi";
+import { Reveal } from "@/components/Reveal";
+import { site } from "@/data/site";
+
+const inputClass =
+  "w-full rounded-xl border border-line bg-white/[0.04] px-4 py-3 text-sm text-ink placeholder:text-muted/60 outline-none transition-all duration-300 focus:border-accent/60 focus:bg-accent/[0.05] focus:shadow-[0_0_0_4px_rgba(34,211,238,0.12)]";
+
+export function Contact() {
+  const [sent, setSent] = useState(false);
+
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const subject = String(data.get("subject") || "Portfolio message");
+    const name = String(data.get("name") || "");
+    const email = String(data.get("email") || "");
+    const message = String(data.get("message") || "");
+
+    const body = [`Hi Ashrakat,`, ``, message, ``, `â€” ${name}${email ? ` (${email})` : ""}`].join("\n");
+
+    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setSent(true);
+    form.reset();
+    window.setTimeout(() => setSent(false), 5000);
+  }
+
+  return (
+    <section id="contact" className="relative overflow-hidden py-24 md:py-32" aria-label="Contact">
+      {/* Animated background */}
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute inset-0 bg-grid mask-fade-x opacity-40" />
+        <div className="absolute left-1/2 top-0 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-electric/15 blur-[130px] animate-orb" />
+        <div className="absolute bottom-0 left-[-10%] h-80 w-80 rounded-full bg-accent/10 blur-[120px] animate-orb-slow" />
+      </div>
+
+      <div className="container-shell">
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent">
+              Contact
+            </span>
+            <h2 className="mt-5 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-[2.75rem]">
+              Let&rsquo;s Build Something <span className="text-gradient">Together</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+              Have a project, opportunity, or idea? I&rsquo;d love to hear about it.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-8">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a href={`mailto:${site.email}`} className="btn-primary">
+                <FiMail size={17} /> Send Email
+              </a>
+              <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+                <FiLinkedin size={17} /> LinkedIn
+              </a>
+              <a href={site.github} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+                <FiGithub size={17} /> GitHub
+              </a>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Form */}
+        <Reveal delay={0.15} className="mx-auto mt-14 max-w-2xl">
+          <form onSubmit={onSubmit} className="rounded-3xl card-surface p-6 md:p-8">
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="contact-name" className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted">
+                  Name
+                </label>
+                <input id="contact-name" name="name" type="text" required placeholder="Your name" className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="contact-email" className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted">
+                  Email
+                </label>
+                <input id="contact-email" name="email" type="email" required placeholder="you@example.com" className={inputClass} />
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <label htmlFor="contact-subject" className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted">
+                Subject
+              </label>
+              <input id="contact-subject" name="subject" type="text" required placeholder="What's this about?" className={inputClass} />
+            </div>
+
+            <div className="mt-5">
+              <label htmlFor="contact-message" className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted">
+                Message
+              </label>
+              <textarea
+                id="contact-message"
+                name="message"
+                required
+                rows={5}
+                placeholder="Tell me about your project or opportunity..."
+                className={`${inputClass} resize-none`}
+              />
+            </div>
+
+            <div className="mt-7 flex flex-col items-center gap-3">
+              <button type="submit" className="btn-primary w-full sm:w-auto">
+                Send Message <FiSend size={16} />
+              </button>
+              <AnimatePresence>
+                {sent ? (
+                  <motion.p
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center gap-2 text-sm font-medium text-accent"
+                    role="status"
+                  >
+                    <FiCheckCircle /> Your email app is opening â€” thanks for reaching out!
+                  </motion.p>
+                ) : null}
+              </AnimatePresence>
+              <p className="text-xs text-muted/70">
+                Prefer direct? Email me at{" "}
+                <a href={`mailto:${site.email}`} className="font-medium text-accent hover:underline">
+                  {site.email}
+                </a>
+              </p>
+            </div>
+          </form>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+"use client";
+
+import { motion } from "framer-motion";
+import { FiCalendar, FiGraduationCap } from "react-icons/fi";
+import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
+import { education } from "@/data/education";
+import { staggerContainer, staggerItem } from "@/components/Reveal";
+
+export function Education() {
+  return (
+    <section id="education" className="relative overflow-hidden py-24 md:py-32" aria-label="Education and training">
+      <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-electric/10 blur-[140px]" aria-hidden="true" />
+
+      <div className="container-shell">
+        <SectionHeading
+          eyebrow="Education"
+          title="Learning"
+          accent="never stops"
+          description="Engineering foundations, dedicated bootcamps, and focused courses that shaped how I build software."
+        />
+
+        <motion.div
+          variants={staggerContainer(0.08, 0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {education.map((item, i) => (
+            <motion.article
+              key={`${item.title}-${i}`}
+              variants={staggerItem(22)}
+              className="group relative flex flex-col rounded-2xl card-surface p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_24px_60px_-24px_rgba(34,211,238,0.3)]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-electric/20 text-accent transition-transform duration-300 group-hover:scale-110">
+                  <FiGraduationCap size={22} />
+                </span>
+                <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted">
+                  {item.tag}
+                </span>
+              </div>
+
+              <h3 className="mt-5 font-display text-lg font-semibold leading-snug text-ink transition-colors group-hover:text-accent">
+                {item.title}
+              </h3>
+              <p className="mt-1.5 text-sm font-medium text-muted">{item.subtitle}</p>
+
+              {item.period ? (
+                <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent/80">
+                  <FiCalendar size={13} />
+                  {item.period}
+                </p>
+              ) : (
+                <span className="mt-3 text-xs text-muted/60">&nbsp;</span>
+              )}
+
+              <div className="mt-auto pt-4">
+                <div className="h-px w-full bg-line" />
+              </div>
+            </motion.article>
+          ))}
+
+          <Reveal className="sm:col-span-2 lg:col-span-1" delay={0.15}>
+            <div className="flex h-full flex-col justify-center rounded-2xl gradient-border p-6">
+              <p className="font-display text-lg font-semibold text-ink">Continuous learner</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                I keep sharpening my React, Next.js, and React Native skills â€” and exploring what&rsquo;s
+                new in the frontend ecosystem.
+              </p>
+              <span className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-accent">
+                Always shipping <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-dot" />
+              </span>
+            </div>
+          </Reveal>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+"use client";
+
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { FiBriefcase } from "react-icons/fi";
+import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
+import { experience } from "@/data/experience";
+
+export function Experience() {
+  const reduced = useReducedMotion();
+  const lineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: lineRef, offset: ["start 85%", "end 60%"] });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 90, damping: 24 });
+  const lineWidth = useTransform(scaleY, (v) => `${v * 100}%`);
+
+  return (
+    <section id="experience" className="relative overflow-hidden py-24 md:py-32" aria-label="Experience">
+      <div className="absolute -right-32 top-1/3 h-96 w-96 rounded-full bg-accent/10 blur-[140px]" aria-hidden="true" />
+
+      <div className="container-shell">
+        <SectionHeading
+          eyebrow="Experience"
+          title="Where I've"
+          accent="applied my craft"
+          description="Building real products for real users â€” from client briefs to deployed, responsive interfaces."
+        />
+
+        <div className="relative mx-auto max-w-3xl">
+          {/* Track */}
+          <div className="absolute left-5 top-0 h-full w-px rounded-full bg-line sm:left-1/2 sm:-translate-x-1/2" aria-hidden="true">
+            <motion.div
+              style={{ height: lineWidth }}
+              className="w-full rounded-full bg-gradient-to-b from-accent via-accent-soft to-electric shadow-[0_0_16px_rgba(34,211,238,0.6)]"
+            />
+          </div>
+
+          <ol className="space-y-10">
+            {experience.map((item) => (
+              <li key={item.role} className="relative">
+                <div className="absolute left-5 top-6 -translate-x-1/2 sm:left-1/2" aria-hidden="true">
+                  <span className="relative grid h-9 w-9 place-items-center rounded-full border border-accent/40 bg-abyss">
+                    <span className="absolute inset-0 rounded-full bg-accent/20 blur-md" />
+                    <FiBriefcase size={15} className="relative text-accent" />
+                  </span>
+                </div>
+
+                <motion.div
+                  initial={reduced ? false : { opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  className="ml-12 sm:ml-0 sm:pl-[calc(50%+3rem)]"
+                >
+                  <div className="rounded-2xl card-surface p-6 transition-colors duration-300 hover:border-accent/40 md:p-7">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="font-display text-xl font-semibold text-ink">{item.role}</h3>
+                      <span className="rounded-full bg-accent/10 px-3 py-1 text-[11px] font-semibold text-accent">
+                        {item.period}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted/80">
+                      {item.type}
+                    </p>
+
+                    <p className="mt-4 text-sm leading-relaxed text-muted">{item.summary}</p>
+
+                    <div className="mt-5 rounded-xl border border-accent/20 bg-accent/[0.06] px-4 py-3">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+                        Main project
+                      </p>
+                      <p className="font-display text-base font-semibold text-ink">
+                        {item.mainProject}
+                      </p>
+                    </div>
+
+                    <motion.div
+                      variants={staggerContainer(0.06, 0.15)}
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true }}
+                      className="mt-5 flex flex-wrap gap-2"
+                    >
+                      {item.tech.map((t) => (
+                        <motion.span
+                          key={t}
+                          variants={staggerItem(10)}
+                          className="rounded-full border border-line bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-accent/40 hover:text-ink"
+                        >
+                          {t}
+                        </motion.span>
+                      ))}
+                    </motion.div>
+                  </div>
+                </motion.div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <Reveal className="mt-12 text-center" delay={0.1}>
+          <p className="text-sm text-muted">
+            Open to{" "}
+            <a href="#contact" className="font-semibold text-accent link-underline">
+              freelance projects
+            </a>{" "}
+            and full-time frontend opportunities.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { FiArrowRight, FiDownload, FiGithub, FiLinkedin } from "react-icons/fi";
+import {
+  SiExpo,
+  SiNextdotjs,
+  SiReact,
+  SiRedux,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
+import { site } from "@/data/site";
+
+const easing = [0.22, 1, 0.36, 1] as const;
+
+const ROTATING = ["React.js", "Next.js", "React Native"];
+
+const floatingIcons = [
+  { Icon: SiReact, className: "left-[4%] top-[16%] text-cyan-300", size: 30, delay: 0 },
+  { Icon: SiNextdotjs, className: "right-[8%] top-[12%] text-white", size: 34, delay: 0.8 },
+  { Icon: SiTypescript, className: "left-[10%] bottom-[22%] text-sky-400", size: 26, delay: 1.6 },
+  { Icon: SiRedux, className: "right-[6%] bottom-[28%] text-violet-400", size: 30, delay: 0.4 },
+  { Icon: SiExpo, className: "left-[24%] top-[62%] text-white", size: 24, delay: 1.1 },
+  { Icon: SiTailwindcss, className: "right-[20%] top-[48%] text-cyan-300", size: 24, delay: 2 },
+];
+
+const PARTICLES = [
+  { left: "6%", bottom: "30%", size: 3, duration: 13, delay: 0 },
+  { left: "18%", bottom: "14%", size: 2, duration: 16, delay: 2 },
+  { left: "30%", bottom: "46%", size: 2.5, duration: 12, delay: 4 },
+  { left: "44%", bottom: "20%", size: 3, duration: 18, delay: 1 },
+  { left: "58%", bottom: "52%", size: 2, duration: 14, delay: 6 },
+  { left: "70%", bottom: "26%", size: 2.5, duration: 17, delay: 3 },
+  { left: "82%", bottom: "38%", size: 3, duration: 15, delay: 5 },
+  { left: "91%", bottom: "16%", size: 2, duration: 12, delay: 7 },
+  { left: "38%", bottom: "68%", size: 2, duration: 19, delay: 8 },
+  { left: "64%", bottom: "74%", size: 2.5, duration: 16, delay: 2.5 },
+  { left: "12%", bottom: "78%", size: 2, duration: 20, delay: 9 },
+  { left: "88%", bottom: "60%", size: 2, duration: 13, delay: 4.5 },
+];
+
+function useParallax(maxX = 22, maxY = 16) {
+  const reduced = useReducedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 60, damping: 20, mass: 0.6 });
+  const sy = useSpring(y, { stiffness: 60, damping: 20, mass: 0.6 });
+  const tx = useTransform(sx, [-0.5, 0.5], [maxX, -maxX]);
+  const ty = useTransform(sy, [-0.5, 0.5], [maxY, -maxY]);
+
+  function onMouseMove(e: React.MouseEvent<HTMLElement>) {
+    if (reduced) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  return { tx, ty, onMouseMove };
+}
+
+export function Hero() {
+  const reduced = useReducedMotion();
+  const { tx, ty, onMouseMove } = useParallax();
+  const [rotating, setRotating] = useState(0);
+
+  useEffect(() => {
+    if (reduced) return;
+    const id = setInterval(() => setRotating((i) => (i + 1) % ROTATING.length), 2600);
+    return () => clearInterval(id);
+  }, [reduced]);
+
+  return (
+    <section
+      id="home"
+      className="relative flex min-h-svh items-center overflow-hidden pt-24 pb-16 md:pt-28"
+      onMouseMove={onMouseMove}
+      aria-label="Hero"
+    >
+      {/* Background */}
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute inset-0 bg-grid mask-fade-x opacity-60" />
+        <motion.div
+          style={reduced ? undefined : { x: tx, y: ty }}
+          className="absolute -top-32 right-[-10%] h-[34rem] w-[34rem] rounded-full bg-electric/20 blur-[140px]"
+        />
+        <motion.div
+          style={reduced ? undefined : { x: tx, y: ty }}
+          className="absolute top-1/3 left-[-12%] h-[28rem] w-[28rem] rounded-full bg-accent/15 blur-[130px]"
+        />
+        <div className="absolute bottom-[-20%] left-1/2 h-[30rem] w-[44rem] -translate-x-1/2 rounded-full bg-electric/10 blur-[150px]" />
+        {!reduced
+          ? PARTICLES.map((p, i) => (
+              <span
+                key={i}
+                className="absolute rounded-full bg-accent/50"
+                style={{
+                  left: p.left,
+                  bottom: p.bottom,
+                  width: p.size,
+                  height: p.size,
+                  animation: `rise ${p.duration}s linear ${p.delay}s infinite`,
+                  opacity: 0,
+                }}
+              />
+            ))
+          : null}
+      </div>
+
+      <div className="container-shell relative grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+        {/* Left column */}
+        <div className="max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: easing }}
+            className="mb-6 inline-flex"
+          >
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-accent/25 bg-accent/10 px-4 py-1.5 text-xs font-medium tracking-wide text-accent">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-pulse-dot rounded-full bg-accent" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+              </span>
+              Available for Opportunities
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.08, ease: easing }}
+            className="font-display text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
+          >
+            Hi, I&rsquo;m <span className="text-gradient">Ashrakat</span> ðŸ‘‹
+          </motion.h1>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.16, ease: easing }}
+            className="mt-4 font-display text-[1.7rem] font-bold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[2.6rem]"
+          >
+            Frontend Developer
+            <span className="block">&amp; Mobile App Developer</span>
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.24, ease: easing }}
+            className="mt-5 flex h-9 items-center"
+            aria-live="off"
+          >
+            <span className="inline-flex items-center gap-3 font-display text-lg font-semibold text-muted sm:text-xl">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={rotating}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: easing }}
+                  className="inline-block"
+                >
+                  <span className="text-gradient">{ROTATING[rotating]}</span>
+                  {rotating < ROTATING.length - 1 && (
+                    <span className="ml-3 text-ink/40">â€¢</span>
+                  )}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.32, ease: easing }}
+            className="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg"
+          >
+            Fresh graduate Computer and Control Engineer passionate about building
+            modern, responsive web and mobile applications.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: easing }}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
+            <a href="#projects" className="btn-primary">
+              View Projects
+              <FiArrowRight size={17} />
+            </a>
+            <a href={site.resume} className="btn-ghost" download>
+              <FiDownload size={17} />
+              Download CV
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5, ease: easing }}
+            className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4"
+          >
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-accent"
+            >
+              Let&rsquo;s Work Together
+              <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+            <span className="hidden h-5 w-px bg-line sm:block" aria-hidden="true" />
+            <div className="flex items-center gap-3">
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
+                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 text-muted transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
+              >
+                <FiLinkedin size={17} />
+              </a>
+              <a
+                href={site.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 text-muted transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
+              >
+                <FiGithub size={17} />
+              </a>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right column â€” floating tech visual */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.3, ease: easing }}
+          className="relative hidden h-[30rem] md:block lg:h-[34rem]"
+          aria-hidden="true"
+        >
+          <motion.div
+            style={reduced ? undefined : { x: tx, y: ty }}
+            className="absolute inset-0 grid place-items-center"
+          >
+            <div className="relative h-56 w-56 sm:h-64 sm:w-64">
+              <div className="absolute inset-0 rotate-45 rounded-[2.5rem] bg-gradient-to-br from-accent/60 to-electric/60 opacity-25 blur-2xl" />
+              <div className="absolute inset-0 rotate-45 rounded-[2.5rem] border border-accent/25 card-surface">
+                <div className="absolute inset-4 rounded-[1.8rem] border border-accent/20 bg-abyss" />
+              </div>
+              <div className="absolute inset-0 -z-10 rotate-[35deg] scale-90 rounded-[2.5rem] border border-white/5" />
+            </div>
+          </motion.div>
+
+          {floatingIcons.map(({ Icon, className, size, delay }) => (
+            <motion.div
+              key={className}
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.6 + delay * 0.15, ease: easing }}
+              className="absolute z-10"
+              style={{ animation: `float ${6.5 + delay * 1.2}s ease-in-out ${delay}s infinite` }}
+            >
+              <motion.span
+                style={reduced ? undefined : { x: tx, y: ty }}
+                className={`grid h-14 w-14 place-items-center rounded-2xl border border-line bg-white/[0.06] backdrop-blur-xl shadow-[0_16px_40px_-16px_rgba(0,0,0,0.7)] sm:h-16 sm:w-16 ${className}`}
+              >
+                <Icon size={size} />
+              </motion.span>
+            </motion.div>
+          ))}
+
+          <motion.div
+            style={reduced ? undefined : { x: tx, y: ty }}
+            className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 glass rounded-2xl px-5 py-3 text-center shadow-[0_18px_50px_-20px_rgba(0,0,0,0.7)]"
+          >
+            <p className="text-xs text-muted">Based in</p>
+            <p className="font-display text-sm font-semibold text-ink">Tanta, Egypt</p>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Location chip visible on small screens */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.6 }}
+        className="container-shell absolute bottom-6 left-0 right-0 md:hidden"
+      >
+        <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white/5 px-3.5 py-1.5 text-xs text-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          {site.location}
+        </p>
+      </motion.div>
+    </section>
+  );
+}
+"use client";
+
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { SectionHeading } from "@/components/SectionHeading";
+import { FeaturedProject } from "@/projects/FeaturedProject";
+import { ProjectCard } from "@/projects/ProjectCard";
+import { ProjectFilters } from "@/projects/ProjectFilters";
+import { projects, type ProjectFilter } from "@/data/projects";
+
+const easing = [0.22, 1, 0.36, 1] as const;
+
+export function Projects() {
+  const [filter, setFilter] = useState<ProjectFilter>("all");
+
+  const visible = projects.filter((p) => filter === "all" || p.category === filter);
+
+  return (
+    <section id="projects" className="relative overflow-hidden py-24 md:py-32" aria-label="Projects">
+      <div className="absolute -left-32 bottom-0 h-[28rem] w-[28rem] rounded-full bg-electric/10 blur-[150px]" aria-hidden="true" />
+
+      <div className="container-shell">
+        <SectionHeading
+          eyebrow="Portfolio"
+          title="A few things I've"
+          accent="built"
+          description="From mobile commerce to real-time apps â€” projects focused on performance, clean components, and a polished user experience."
+        />
+
+        <FeaturedProject />
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15, ease: easing }}
+          className="mt-16"
+        >
+          <ProjectFilters active={filter} onChange={setFilter} />
+        </motion.div>
+
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {visible.map((project, i) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, y: 28, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                exit={{ opacity: 0, scale: 0.92, y: 10, transition: { duration: 0.22, ease: easing } }}
+                transition={{ duration: 0.5, delay: i * 0.07, ease: easing }}
+                className="flex"
+              >
+                <ProjectCard project={project} className="w-full" />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+}
+"use client";
+
+import { motion } from "framer-motion";
+import { SectionHeading } from "@/components/SectionHeading";
+import { staggerContainer, staggerItem } from "@/components/Reveal";
+import { skillCategories } from "@/data/skills";
+
+export function Skills() {
+  return (
+    <section id="skills" className="relative overflow-hidden py-24 md:py-32" aria-label="Skills">
+      <div className="absolute -right-40 top-0 h-[26rem] w-[26rem] rounded-full bg-electric/10 blur-[140px]" aria-hidden="true" />
+      <div className="container-shell">
+        <SectionHeading
+          eyebrow="Skills"
+          title="Technologies I"
+          accent="work with"
+          description="The tools and frameworks I use to ship modern, production-ready web and mobile interfaces."
+        />
+
+        <motion.div
+          variants={staggerContainer(0.07, 0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4"
+        >
+          {skillCategories.map((category) => (
+            <motion.div
+              key={category.title}
+              variants={staggerItem(22)}
+              className="group relative rounded-3xl card-surface p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_24px_60px_-24px_rgba(34,211,238,0.35)]"
+            >
+              <div
+                className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{
+                  background:
+                    "radial-gradient(420px circle at 50% 0%, rgba(34,211,238,0.10), transparent 60%)",
+                }}
+                aria-hidden="true"
+              />
+              <div className="relative">
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="font-display text-base font-semibold text-ink">{category.title}</h3>
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-muted/80">
+                    {category.skills.length}
+                  </span>
+                </div>
+                <p className="mt-1 text-xs leading-relaxed text-muted">{category.caption}</p>
+
+                <div className="mt-4 grid grid-cols-2 gap-2">
+                  {category.skills.map((skill) => {
+                    const Icon = skill.icon;
+                    return (
+                      <div
+                        key={skill.name}
+                        className="group/skill relative flex items-center gap-2 rounded-xl border border-line/70 bg-white/[0.03] px-2.5 py-2 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45 hover:bg-accent/10"
+                        title={skill.basic ? `${skill.name} â€” Basic Understanding` : skill.name}
+                      >
+                        <Icon
+                          size={17}
+                          className="shrink-0 text-muted transition-all duration-300 group-hover/skill:scale-110 group-hover/skill:text-accent"
+                        />
+                        <span className="truncate text-xs font-medium text-ink/85 transition-colors duration-300 group-hover/skill:text-ink">
+                          {skill.name}
+                        </span>
+                        {skill.basic ? (
+                          <span className="absolute -top-2 -right-1 rounded-full bg-accent/90 px-1.5 py-px text-[9px] font-semibold uppercase tracking-wide text-night">
+                            Basic
+                          </span>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.7 }}
+          className="mt-8 text-center text-xs text-muted/70"
+        >
+          Node.js &amp; Express.js are shown at a{" "}
+          <span className="font-semibold text-muted">Basic Understanding</span> level.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
